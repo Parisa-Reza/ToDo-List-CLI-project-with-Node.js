@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const taskFilePath = path.join(__dirname, "tasks.json");
+const taskFilePath = path.join("./data/tasks.json");
 
 
 // LOADING AND READING FROM tasks.json FILE OPERATION
