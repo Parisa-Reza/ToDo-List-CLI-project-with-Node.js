@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const taskFilePath = path.join("./data/tasks.json");
 
+const logger= require("./logger")
 
 // LOADING AND READING FROM tasks.json FILE OPERATION
 
@@ -9,7 +10,7 @@ function loadTask() {
   // checking if tasks.json file exists or not
   if (!fs.existsSync(taskFilePath)) {
     // if the file does not exist, a new file will be created with that very same name
-    console.warn("no such file exists")
+    logger.warn("no such file exists")
     return [];
   }
   // tasks.json file exists or not so now read the file as string format
@@ -18,7 +19,7 @@ function loadTask() {
 
     //converting string to json
     let taskList = JSON.parse(tasksFileData);
-    console.log(`loaded tasks are ${taskList.length}`)
+    logger.info(`loaded tasks are ${taskList.length}`)
     return taskList
   }
 }
@@ -70,7 +71,7 @@ function savetask(taskList) {
     }
     // save taskList as string in tasks.json file
   fs.writeFileSync(taskFilePath, JSON.stringify(taskList));
-   console.log(`saved tasks are ${taskList.length}`)
+    logger.info(`saved tasks are ${taskList.length}`)
 //    console.log("all the tasks are ", taskList);
 }
 
@@ -79,24 +80,39 @@ function savetask(taskList) {
 // VIEWING taskList 
 
 
-function viewtask()
-{
-    const taskList=loadTask();
-    console.log("_________________________________________________________")
-    console.log(taskList)
-    console.log("_________________________________________________________")
+function viewtask() {
+  const taskList = loadTask();
+
+  logger.info(
+    "_______________________________________________________________________________________"
+  );
+
+  logger.info(
+  taskList
+  .map( (task)=> `DATE: [${task.date}] ID : ${task.id}  TASK : ${task.taskName}`)
+  .join('\n')
+
+
+
+
+  )
+
+
+  logger.info(
+    "_______________________________________________________________________________________"
+  );
 }
 
 // DELETING A SPECIFIC TASK FROM taskList
 
 function deletetask(id){
 let taskList =loadTask()
-console.warn(`task  ${id}  is going to be deleted` )
+logger.warn(`task  ${id}  is going to be deleted` )
 
 
 taskList= taskList.filter((task)=> parseInt(task.id)!==parseInt(id))
 
- taskList.map((task, taskIndex) => {
+ taskList=taskList.map((task, taskIndex) => {
         return { ...task, id: taskIndex + 1 };
     });
 savetask(taskList)
@@ -113,7 +129,7 @@ function edittask(id,editedTaskName)
 {
     if(!id || ! editedTaskName)
     {
-         throw new Error("Both id and new task name must be provided");
+         logger.error("Both id and new task name must be provided");
     }
     const taskList= loadTask()
     edittTaskIndex=taskList.findIndex((task)=>
@@ -121,7 +137,7 @@ function edittask(id,editedTaskName)
     )
 
     taskList[edittTaskIndex].taskName=editedTaskName;
-    taskList.date=new Date();
+    taskList[edittTaskIndex].date=new Date();
     savetask(taskList)
 }
 
