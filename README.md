@@ -7,8 +7,9 @@ A simple **Command-Line To-Do List Application** built with Node.js. This projec
 
 ## Demo Video
 
-Watch the demo video here:  
-https://www.dropbox.com/scl/fi/tmqrx8hd5q40jqn1ixaw3/todo-list-cli-with-node-js.mp4?rlkey=2n8ljwixqum88bkfl0f965i6l&st=tzz2iu3n&dl=0
+Watch the demo video here (you can adjust the speed as your preference) :  
+
+> https://www.dropbox.com/scl/fi/tmqrx8hd5q40jqn1ixaw3/todo-list-cli-with-node-js.mp4?rlkey=2n8ljwixqum88bkfl0f965i6l&st=tzz2iu3n&dl=0
 
 ---
 
